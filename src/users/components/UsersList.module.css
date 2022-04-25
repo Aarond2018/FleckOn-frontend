@@ -1,0 +1,38 @@
+.users {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+  grid-gap: 1.5rem;
+  margin: 2.5rem auto !important;
+}
+
+.user {
+  width: 100%;
+  height: 6rem;
+  display: flex;
+  align-items: center;
+}
+
+.user__image {
+  width: 4rem;
+  height: 70%;
+}
+
+.user__image > img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.user__info {
+  margin-left: 1rem;
+}
+
+.user__info > h4 {
+  font-weight: 700;
+}
+
+.user__info > p {
+  font-weight: 500;
+  font-size: 0.85rem;
+}

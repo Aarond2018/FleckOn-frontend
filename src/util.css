@@ -1,0 +1,13 @@
+.flex {
+  display: flex;
+}
+
+.row {
+  width: 1600px;
+  max-width: 90%;
+  margin: 0 auto;
+}
+
+.col-primary {
+  color: var(--color-primary)
+}

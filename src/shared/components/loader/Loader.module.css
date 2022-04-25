@@ -1,0 +1,9 @@
+.loader {
+  margin: 4rem 0;
+  display: flex;
+  justify-content: center;
+}
+
+.loader > img {
+  width: 5rem;
+}
