@@ -11,3 +11,11 @@
 .col-primary {
   color: var(--color-primary)
 }
+
+.error-text {
+  text-align: center;
+  margin: 0.5rem 0;
+  color: red;
+  font-size: 0.8rem;
+  font-style: italic;
+}

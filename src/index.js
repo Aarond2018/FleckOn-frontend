@@ -5,16 +5,19 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+import { AuthContextProvider } from "./shared/context/AuthContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 const queryClient = new QueryClient();
 
 root.render(
-	<BrowserRouter>
-		<QueryClientProvider client={queryClient}>
-			<App />
-		</QueryClientProvider>
-	</BrowserRouter>
+	<AuthContextProvider>
+		<BrowserRouter>
+			<QueryClientProvider client={queryClient}>
+				<App />
+			</QueryClientProvider>
+		</BrowserRouter>
+	</AuthContextProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function

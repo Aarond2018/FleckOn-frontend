@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+
+import { AuthContext } from "../../context/AuthContext";
 
 import styles from "./header.module.css";
 
 export default function Header() {
+	const authCtx = useContext(AuthContext)
+
 	return (
 		<header className={styles.header}>
 			<div className={`flex row ${styles.header__main}`}>
@@ -14,15 +18,19 @@ export default function Header() {
 					<li>
 						<Link to="/">Users</Link>
 					</li>
-					<li>
+					{!authCtx.isLoggedIn && (
+						<li>
 						<Link to="/login">Log in / Sign up</Link>
 					</li>
-					<li>
+					)}
+					{authCtx.isLoggedIn && (<li>
 						<Link to="">Sign out</Link>
+					</li>)}
+					{authCtx.isLoggedIn && (
+						<li>
+							<Link to="">New Place</Link>
 					</li>
-					<li>
-						<Link to="">New Place</Link>
-					</li>
+					)}
 				</ul>
 			</div>
 		</header>
