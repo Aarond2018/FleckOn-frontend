@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { useQuery, useMutation } from "react-query";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { AuthContext } from "../shared/context/AuthContext";
 import Cookies from 'js-cookie';

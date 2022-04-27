@@ -12,6 +12,7 @@ import "./util.css";
 const Users = React.lazy(() => import("./users/pages/Users"));
 const Signup = React.lazy(() => import("./users/pages/Signup"))
 const Login = React.lazy(() => import("./users/pages/Login"))
+const Places = React.lazy(() => import("./places/pages/Places"))
 
 function App() {
   const ctx = useContext(AuthContext)
@@ -46,6 +47,14 @@ function App() {
 						element={
 							<Suspense fallback={<Loader />}>
 								<Signup />
+							</Suspense>
+						}
+					/>
+					<Route
+						path="/places/:id"
+						element={
+							<Suspense fallback={<Loader />}>
+								<Places />
 							</Suspense>
 						}
 					/>

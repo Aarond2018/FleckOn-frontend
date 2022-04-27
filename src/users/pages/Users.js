@@ -17,7 +17,7 @@ export default function Users() {
 
   return (
     <main>
-      <UsersList users={data}/>
+      {data.data.length === 0 ? "no users yet" : <UsersList users={data}/>}
     </main>
   )
 }
