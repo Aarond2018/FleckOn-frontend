@@ -16,11 +16,9 @@ export default function Login() {
 		handleSubmit,
 	} = useForm({ mode: "onChange" });
 
-  const mutation = useAxiosSignup()
+  const { mutate, status: reqStatus, error: reqError } = useAxiosSignup()
 
 	const handleFormSubmit = (data) => {
-    
-    console.log({...data, imageFile})
     const formValues = {...data, image: imageFile}
 
     const formData = new FormData()
@@ -29,12 +27,11 @@ export default function Login() {
       formData.append(key, formValues[key])
     }
 
-    mutation.mutate(formData)
+    mutate(formData)
 
 	};
 
   const handleFileSelect = event => {
-    console.log(event.target.files[0])
     setImageFile(event.target.files[0])
   }
 
@@ -43,8 +40,8 @@ export default function Login() {
   }
   
   let buttonText;
-  if (mutation.status === "loading") buttonText = "Signing up..."
-  if (mutation.status === "success") buttonText = "Done"
+  if (reqStatus === "loading") buttonText = "Signing up..."
+  if (reqStatus === "success") buttonText = "Done"
 
 
 	return (
@@ -104,7 +101,7 @@ export default function Login() {
           )}
 
 					<button type="submit" className={styles.button}>{buttonText || "Sign up"}</button>
-          <p className="error-text">{mutation.status === "error" && "An error occured"}</p>
+          <p className="error-text">{reqStatus === "error" && ( reqError.response.data.message ||"An error occured")}</p>
 					<p>
 						Do you have an account?{" "}
 						<span>

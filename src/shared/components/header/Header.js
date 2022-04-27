@@ -8,6 +8,10 @@ import styles from "./header.module.css";
 export default function Header() {
 	const authCtx = useContext(AuthContext)
 
+	const handleSignOut = e => {
+		authCtx.signout()
+	}
+
 	return (
 		<header className={styles.header}>
 			<div className={`flex row ${styles.header__main}`}>
@@ -24,7 +28,7 @@ export default function Header() {
 					</li>
 					)}
 					{authCtx.isLoggedIn && (<li>
-						<Link to="">Sign out</Link>
+						<Link to="" onClick={handleSignOut}>Sign out</Link>
 					</li>)}
 					{authCtx.isLoggedIn && (
 						<li>

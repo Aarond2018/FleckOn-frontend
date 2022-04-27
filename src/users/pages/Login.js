@@ -8,7 +8,6 @@ import { useAxiosLogin } from "../../hooks/useAxios";
 import styles from "./Auth.module.css";
 
 export default function Login() {
-  let navigate = useNavigate();
 
 	const {
 		register,
@@ -16,23 +15,15 @@ export default function Login() {
 		handleSubmit,
 	} = useForm({ mode: "onChange" });
 
-  const mutation = useAxiosLogin()
-
-  /* useEffect(() => {
-    if(mutation.status === "success") {
-      navigate("/", { replace: true });
-    }
-  }, [mutation.status, navigate]) */
+  const { mutate, error: reqError, status: reqStatus } = useAxiosLogin()
 
 	const handleFormSubmit = (data) => {
-    mutation.mutate(data)
-
+    mutate(data)
 	};
-  
+
   let buttonText;
-  if (mutation.status === "loading") buttonText = "Logging in..."
-  if (mutation.status === "idle") buttonText = "Log in"
-  if (mutation.status === "success") buttonText = "Logged in"
+  if (reqStatus === "loading") buttonText = "Logging in..."
+  if (reqStatus === "success") buttonText = "Logged in"
 
 	return (
 		<main className={styles.main}>
@@ -71,7 +62,7 @@ export default function Login() {
 						{errors.password && <p>{errors.password.message}</p>}
 					</div>
 					<button type="submit" className={styles.button}>{buttonText || "Log in"}</button>
-          <p className="error-text">{mutation.status === "error" && "An error occured"}</p>
+          <p className="error-text">{reqStatus === "error" && (reqError.response.data.message || "An error occured")}</p>
 					<p>
 						Don't have an account?{" "}
 						<span>
