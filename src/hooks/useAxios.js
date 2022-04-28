@@ -3,14 +3,18 @@ import { useQuery, useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { AuthContext } from "../shared/context/AuthContext";
-import Cookies from 'js-cookie';
-
+import Cookies from "js-cookie";
 
 export const useAxios = () => {
-	return useQuery("users",  () =>
-	axios
-		.get(`${process.env.REACT_APP_BACKEND_URL}/users`)
-		.then((res) => res.data));
+	return useQuery("users", async () => {
+		let data;
+		try {
+			data = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/users`);
+		} catch (error) {
+			throw new Error(error);
+		}
+		return data;
+	});
 };
 
 export const useAxiosLogin = () => {
@@ -18,23 +22,31 @@ export const useAxiosLogin = () => {
 	const authCtx = useContext(AuthContext);
 
 	return useMutation(
-		({ email, password }) =>
-			axios.post(`${process.env.REACT_APP_BACKEND_URL}/users/login`, {
-				email,
-				password,
-			}).then(res => res.data),
+		async ({ email, password }) => {
+      let response;
+      try {
+        response = axios
+				.post(`${process.env.REACT_APP_BACKEND_URL}/users/login`, {
+					email,
+					password,
+				}).then(res => res.data)
+      } catch (error) {
+        throw new Error(error)
+      }
+      return response;
+    },
 		{
 			onSuccess: (data) => {
-				console.log(data);
-				authCtx.login(data.data.token);
-        Cookies.set("fleckonUser", data.data.token, {
-          expires: 1/24
-      });
+        const { token } = data.data
+				authCtx.login(token);
+				Cookies.set("fleckonUser", token, {
+					expires: 1 / 24,
+				});
 				navigate("/", { replace: true });
 			},
 			onError: (error, variables, context) => {
-        console.log(error.response.data.message)
-      },
+				console.log(error.response)
+			},
 			retry: false,
 		}
 	);
@@ -42,18 +54,21 @@ export const useAxiosLogin = () => {
 
 export const useAxiosSignup = () => {
 	const navigate = useNavigate();
-  const authCtx = useContext(AuthContext);
+	const authCtx = useContext(AuthContext);
 
 	return useMutation(
-		(formData) => {
-			return axios
-				.post(`${process.env.REACT_APP_BACKEND_URL}/users/signup`, formData)
-				.then((res) => res.data);
+		async (formData) => {
+      let response;
+			try {
+        response = axios.post(`${process.env.REACT_APP_BACKEND_URL}/users/signup`, formData).then(res => res.data)
+      } catch(error) {
+        throw new Error(error)
+      }
+      return response;
 		},
 		{
 			onSuccess: (data, variables, context) => {
-				console.log(data);
-        authCtx.login(data.data.token)
+				authCtx.login(data.data.token);
 				navigate("/", { replace: true });
 			},
 			onError: (error, variables, context) => {

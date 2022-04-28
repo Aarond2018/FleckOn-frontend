@@ -62,7 +62,7 @@ export default function Login() {
 						{errors.password && <p>{errors.password.message}</p>}
 					</div>
 					<button type="submit" className={styles.button}>{buttonText || "Log in"}</button>
-          <p className="error-text">{reqStatus === "error" && (reqError.response.data.message || "An error occured")}</p>
+          <p className="error-text">{reqStatus === "error" && (reqError?.response?.data?.message || "An error occured")}</p>
 					<p>
 						Don't have an account?{" "}
 						<span>

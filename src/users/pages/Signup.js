@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 
 import { useAxiosSignup } from "../../hooks/useAxios";
@@ -101,7 +101,7 @@ export default function Login() {
           )}
 
 					<button type="submit" className={styles.button}>{buttonText || "Sign up"}</button>
-          <p className="error-text">{reqStatus === "error" && ( reqError.response.data.message ||"An error occured")}</p>
+          <p className="error-text">{reqStatus === "error" && ( reqError?.response?.data?.message ||"An error occured")}</p>
 					<p>
 						Do you have an account?{" "}
 						<span>

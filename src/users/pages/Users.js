@@ -12,12 +12,12 @@ export default function Users() {
   }
 
   if(status === "error") {
-    return <h2>Err: {error.message}</h2>
+    return <h2>{error.message}</h2>
   }
 
   return (
     <main>
-      {data.data.length === 0 ? "no users yet" : <UsersList users={data}/>}
+      {data.data.length === 0 ? "no users yet" : <UsersList users={data.data}/>}
     </main>
   )
 }

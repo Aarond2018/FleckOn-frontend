@@ -1,6 +1,7 @@
 import React, { Suspense, useEffect, useContext } from "react";
 import { Routes, Route } from "react-router-dom";
 import Cookies from 'js-cookie';
+import { ReactQueryDevtools } from 'react-query/devtools'
 
 import Header from "./shared/components/header/Header";
 import Loader from "./shared/components/loader/Loader";
@@ -59,6 +60,7 @@ function App() {
 						}
 					/>
 				</Routes>
+        <ReactQueryDevtools initialIsOpen={false} />
 			</div>
 	);
 }
