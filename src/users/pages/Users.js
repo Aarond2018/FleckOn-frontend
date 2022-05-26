@@ -1,21 +1,25 @@
-import React from 'react'
-import UsersList from '../components/UsersList'
+import React from "react";
+import UsersList from "../components/UsersList";
 
 import { useAxios } from "../../hooks/useAxios";
-import Loader from '../../shared/components/loader/Loader';
+import Loader from "../../shared/components/loader/Loader";
+import NoItem from "../../shared/components/NoItem/NoItem";
+import ErrorPage from "../../shared/pages/ErrorPage";
 
 export default function Users() {
-  const { data, status, error } = useAxios()
+	const { data, status, error } = useAxios();
 
-  if(status === "loading") <Loader />
+	if (status === "loading") {
+		return <Loader />;
+	}
 
-  if(status === "error") <h2>{error.message}</h2>
+	if (status === "error") {
+		return <ErrorPage />;
+	}
 
-  if(data && data.data.length === 0) <h3>No users yet</h3>
+	if (data && data.data.length === 0) {
+		return <NoItem context="User" />;
+	}
 
-  return (
-    <main>
-      {data && <UsersList users={data.data}/>}
-    </main>
-  )
+	return <main>{data && <UsersList users={data.data} />}</main>;
 }

@@ -37,9 +37,9 @@ export const useAxiosLogin = () => {
     },
 		{
 			onSuccess: (data) => {
-        const { token } = data.data
-				authCtx.login(token);
-				Cookies.set("fleckonUser", token, {
+        const { token, id } = data.data
+				authCtx.login(token, id);
+				Cookies.set("fleckonUser", JSON.stringify({token, userId: id}), {
 					expires: 1 / 24,
 				});
 				navigate("/", { replace: true });
@@ -68,9 +68,9 @@ export const useAxiosSignup = () => {
 		},
 		{
 			onSuccess: (data, variables, context) => {
-        const { token } = data.data
-				authCtx.login(token);
-        Cookies.set("fleckonUser", token, {
+        const { token, id } = data.data
+				authCtx.login(token, id);
+        Cookies.set("fleckonUser", JSON.stringify({token, userId: id}), {
 					expires: 1 / 24,
 				});
 				navigate("/", { replace: true });

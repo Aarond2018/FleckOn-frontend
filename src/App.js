@@ -19,9 +19,10 @@ function App() {
   const ctx = useContext(AuthContext)
 
   useEffect(() => {
-    const token = Cookies.get("fleckonUser")
+    const token = Cookies.get("fleckonUser") 
     if(token){
-      ctx.login(token)
+			const parsedToken = JSON.parse(token)
+      ctx.login(parsedToken.token, parsedToken.userId)
     } else {
       ctx.signout()
     }
