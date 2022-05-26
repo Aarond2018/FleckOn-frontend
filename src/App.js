@@ -20,7 +20,11 @@ function App() {
 
   useEffect(() => {
     const token = Cookies.get("fleckonUser")
-    if(token) ctx.login(token)
+    if(token){
+      ctx.login(token)
+    } else {
+      ctx.signout()
+    }
   }, [ctx])
 
 	return (

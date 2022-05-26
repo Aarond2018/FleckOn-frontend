@@ -68,7 +68,11 @@ export const useAxiosSignup = () => {
 		},
 		{
 			onSuccess: (data, variables, context) => {
-				authCtx.login(data.data.token);
+        const { token } = data.data
+				authCtx.login(token);
+        Cookies.set("fleckonUser", token, {
+					expires: 1 / 24,
+				});
 				navigate("/", { replace: true });
 			},
 			onError: (error, variables, context) => {
@@ -77,3 +81,15 @@ export const useAxiosSignup = () => {
 		}
 	);
 };
+
+export const useAxiosGetPlaces = id => {
+  return useQuery(["places", id], async () => {
+    let response;
+    try {
+      response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/places/user/${id}`).then(res => res.data)
+    } catch(error) {
+      throw new Error(error)
+    }
+    return response
+  })
+}

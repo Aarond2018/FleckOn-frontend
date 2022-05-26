@@ -96,8 +96,8 @@ export default function Login() {
           </div>
           {imageFile && (
             <div className={styles.image__preview}>
-            <img src={`${URL.createObjectURL(imageFile)}`} alt="user"/>
-          </div>
+            	<img src={`${URL.createObjectURL(imageFile)}`} alt="user"/>
+          	</div>
           )}
 
 					<button type="submit" className={styles.button}>{buttonText || "Sign up"}</button>
