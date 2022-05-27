@@ -32,7 +32,7 @@ export default function Header() {
 					</li>)}
 					{authCtx.isLoggedIn && (
 						<li>
-							<Link to="">New Place</Link>
+							<Link to="/newplace">New Place</Link>
 					</li>
 					)}
 				</ul>

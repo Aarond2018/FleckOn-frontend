@@ -9,6 +9,7 @@ import { AuthContext } from "./shared/context/AuthContext";
 
 import "./App.css";
 import "./util.css";
+import NewPlace from "./places/pages/NewPlace";
 
 const Users = React.lazy(() => import("./users/pages/Users"));
 const Signup = React.lazy(() => import("./users/pages/Signup"))
@@ -61,6 +62,14 @@ function App() {
 						element={
 							<Suspense fallback={<Loader />}>
 								<Places />
+							</Suspense>
+						}
+					/>
+					<Route
+						path="/newplace"
+						element={
+							<Suspense fallback={<Loader />}>
+								<NewPlace />
 							</Suspense>
 						}
 					/>
