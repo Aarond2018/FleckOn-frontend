@@ -93,3 +93,32 @@ export const useAxiosGetPlaces = id => {
     return response
   })
 }
+
+export const useAxiosAddPlace = () => {
+	const navigate = useNavigate();
+	const authCtx = useContext(AuthContext);
+
+	return useMutation(
+		async (formData) => {
+      let response;
+			try {
+        response = axios.post(`${process.env.REACT_APP_BACKEND_URL}/places`, formData, {
+					headers: {
+						'Authorization':`Bearer ${authCtx.token}`
+				}
+				}).then(res => res.data)
+      } catch(error) {
+        throw new Error(error)
+      }
+      return response;
+		},
+		{
+			onSuccess: (data, variables, context) => {
+				navigate(`/places/${authCtx.userId}`, { replace: true });
+			},
+			onError: (error, variables, context) => {
+				console.log(error);
+			},
+		}
+	);
+};

@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 
 
-import { useAxiosSignup } from "../../hooks/useAxios";
+import { useAxiosAddPlace } from "../../hooks/useAxios";
 
 import styles from "../../users/pages/Auth.module.css"
 
@@ -17,7 +17,7 @@ export default function NewPlace() {
 		handleSubmit,
 	} = useForm({ mode: "onChange" });
 
-  const { mutate, status: reqStatus, error: reqError } = useAxiosSignup()
+  const { mutate, status: reqStatus, error: reqError } = useAxiosAddPlace()
 
 	const handleFormSubmit = (data) => {
     const formValues = {...data, image: imageFile}
@@ -41,8 +41,8 @@ export default function NewPlace() {
   }
   
   let buttonText;
-  if (reqStatus === "loading") buttonText = "Signing up..."
-  if (reqStatus === "success") buttonText = "Done"
+  if (reqStatus === "loading") buttonText = "Adding Place"
+  if (reqStatus === "success") buttonText = "Place added"
 
 
 	return (
